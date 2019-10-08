@@ -4,6 +4,7 @@ import android.graphics.drawable.Animatable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.widget.SeekBar
 import kotlinx.android.synthetic.main.activity_media.*
 
@@ -43,17 +44,16 @@ class MediaActivity : AppCompatActivity() {
     private fun seekBarFunctionality() {
         video_seek_bar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                seekBar?.let {
-                    video_view.seekTo(it.progress)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                seekBar.let {
+                    video_view.seekTo(seekBar!!.progress)
                 }
             }
-
-            override fun onStartTrackingTouch(p0: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(p0: SeekBar?) {
-            }
-
         })
     }
 
@@ -69,6 +69,25 @@ class MediaActivity : AppCompatActivity() {
                 video_seek_bar.max = mp.duration
             }
         }
+
+        val handler = Handler()
+        this@MediaActivity.runOnUiThread(object: Runnable {
+            override fun run() {
+                if (video_view != null) {
+                    val currentPosition = video_view.currentPosition
+                    video_seek_bar.progress = currentPosition
+                    
+                    val duration = video_view.duration/1000
+                    val seconds = video_view.currentPosition/1000
+                    val currentSeconds = String.format("%02d", seconds)
+                    val durationSeconds = String.format("%02d", duration-seconds)
+                    seekbar_current_time.text = "00:" + currentSeconds
+                    seekbar_remaining_time.text = "00:" + durationSeconds
+                }
+
+                handler.postDelayed(this, 1000)
+            }
+        })
     }
 
     override fun onStop() {
