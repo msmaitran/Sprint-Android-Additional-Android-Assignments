@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Location Based Services - Map Marker</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="my_location">My Location</string>
+    <string name="target_location">Target Location</string>
+</resources>
