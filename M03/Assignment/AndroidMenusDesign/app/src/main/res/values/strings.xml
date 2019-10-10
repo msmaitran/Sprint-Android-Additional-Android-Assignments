@@ -2,4 +2,9 @@
     <string name="app_name">Android Menus Design</string>
     <string name="open_drawer">open</string>
     <string name="closer_drawer">close</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="notifications">Notifications</string>
+    <string name="see_latest">See latest</string>
+    <string name="view_content_preferences">View content preferences</string>
 </resources>

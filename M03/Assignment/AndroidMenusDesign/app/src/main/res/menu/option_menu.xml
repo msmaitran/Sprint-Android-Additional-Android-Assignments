@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_latest"
+        android:title="@string/see_latest" />
+
+    <item
+        android:id="@+id/menu_preferences"
+        android:title="@string/view_content_preferences" />
+
+</menu>

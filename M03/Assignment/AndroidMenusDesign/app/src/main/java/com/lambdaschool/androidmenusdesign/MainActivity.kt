@@ -2,6 +2,8 @@ package com.lambdaschool.androidmenusdesign
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -42,5 +44,19 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
+    }
+
+    // Options Drawer
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.option_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item?.itemId) {
+            R.id.menu_latest -> { Toast.makeText(this, "Shows the latest on top", Toast.LENGTH_LONG).show() }
+            R.id.menu_preferences -> { Toast.makeText(this, "View preferences", Toast.LENGTH_LONG).show() }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
