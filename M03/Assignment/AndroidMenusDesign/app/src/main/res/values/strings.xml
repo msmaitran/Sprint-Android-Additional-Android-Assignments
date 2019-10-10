@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Android Menus Design</string>
+    <string name="open_drawer">open</string>
+    <string name="closer_drawer">close</string>
+</resources>
