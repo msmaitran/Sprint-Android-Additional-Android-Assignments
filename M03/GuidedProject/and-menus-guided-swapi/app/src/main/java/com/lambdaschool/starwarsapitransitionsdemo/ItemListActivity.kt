@@ -52,6 +52,11 @@ class ItemListActivity : AppCompatActivity() {
         toolbar.title = title
 
         // TODO 3: get handle to drawer layout and bind to toolbar toggle
+        drawerLayout = findViewById(R.id.drawer_layout)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer)
+
+        drawerLayout?.addDrawerListener(toggle)
+        toggle.syncState()
 
         swApiObjects = ArrayList()
 
@@ -68,6 +73,22 @@ class ItemListActivity : AppCompatActivity() {
         setupRecyclerView(recyclerView as RecyclerView)
 
         // TODO 6: create a menu item selection listener and bind it to our navigation view
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            menuItem.isChecked = true
+            swApiObjects?.clear()
+            viewAdapter?.notifyDataSetChanged()
+
+            when (menuItem.itemId) {
+                R.id.nav_category_people -> { getData(TYPE_PEOPLE) }
+                R.id.nav_category_planets -> { getData(TYPE_PLANETS) }
+                R.id.nav_category_starships -> { getData(TYPE_STARSHIPS) }
+            }
+
+            drawerLayout?.closeDrawers()
+
+            true
+        }
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
@@ -169,26 +190,34 @@ class ItemListActivity : AppCompatActivity() {
      */
     // TODO 7: add our menu to the toolbar menu
 
-    /**
-     * This hook is called whenever an item in your options menu is selected.
-     * The default implementation simply returns false to have the normal
-     * processing happen (calling the item's Runnable or sending a message to
-     * its Handler as appropriate).  You can use this method for any items
-     * for which you would like to do processing without those other
-     * facilities.
-     *
-     *
-     * Derived classes should call through to the base class for it to
-     * perform the default menu handling.
-     *
-     * @param menuItem The menu item that was selected.
-     * @return boolean Return false to allow normal menu processing to
-     * proceed, true to consume it here.
-     * @see .onCreateOptionsMenu
-     */
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.sort_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
-    // TODO 8: Add logic to listener
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
+        when (item?.itemId) {
+            R.id.menu_sort -> {
+                swApiObjects?.let {
+                    it.sortWith(Comparator<SwApiObject> { o1, o2 ->
+                        if (o1 == null || o2 == null) {
+                            0
+                        } else {
+                            //o1?.name?.compareTo(o2?.name, true)
+                            SwApiObject.compareNames(o1, o2)
+                        }
+                    })
+                }
+                viewAdapter?.notifyDataSetChanged()
+            }
+
+//            R.id.menu_show_toast -> {
+//                Toast.makeText(this, "This is a toast", Toast.LENGTH_SHORT).show()
+//            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
     class SimpleItemRecyclerViewAdapter
 
     internal constructor(private val mParentActivity: ItemListActivity,

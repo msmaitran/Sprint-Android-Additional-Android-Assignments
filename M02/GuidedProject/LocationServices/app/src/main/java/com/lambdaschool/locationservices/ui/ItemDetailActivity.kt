@@ -38,6 +38,8 @@ class ItemDetailActivity : AppCompatActivity() {
             val fragment = ItemDetailFragment().apply {
                 arguments = Bundle().apply {
                     // TODO: S09M02-8b put Serializable
+                    putSerializable(ItemDetailFragment.ARG_ITEM_ID,
+                        intent.getSerializableExtra(ItemDetailFragment.ARG_ITEM_ID))
                 }
             }
 

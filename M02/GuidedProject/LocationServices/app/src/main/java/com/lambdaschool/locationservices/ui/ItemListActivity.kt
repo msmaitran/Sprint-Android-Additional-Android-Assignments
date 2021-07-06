@@ -91,6 +91,7 @@ class ItemListActivity : AppCompatActivity() {
                 val fragment = ItemDetailFragment().apply {
                     arguments = Bundle().apply {
                         // TODO: S09M02-8a Use Serializable to pass the Contact
+                        putSerializable(ItemDetailFragment.ARG_ITEM_ID, item)
                     }
                 }
                 parentActivity.supportFragmentManager

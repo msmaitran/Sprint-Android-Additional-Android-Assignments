@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".MediaActivity">
+
+    <VideoView
+        android:id="@+id/video_view"
+        android:layout_width="0dp"
+        android:layout_height="240dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <SeekBar
+        android:id="@+id/video_seek_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video_view"/>
+
+    <TextView
+        android:id="@+id/seekbar_current_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:padding="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/seekbar_remaining_time"
+        app:layout_constraintTop_toBottomOf="@+id/video_seek_bar"/>
+
+    <TextView
+        android:id="@+id/tv_slash"
+        android:text="/"
+        android:paddingTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/seekbar_current_time"
+        app:layout_constraintRight_toLeftOf="@+id/seekbar_remaining_time"
+        app:layout_constraintTop_toBottomOf="@+id/video_seek_bar"/>
+
+    <TextView
+        android:id="@+id/seekbar_remaining_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:padding="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/tv_slash"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video_seek_bar"/>
+
+    <ImageButton
+        android:id="@+id/btn_play_pause"
+        android:background="@color/colorBackground"
+        android:src="@drawable/avd_anim_play_pause"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekbar_current_time"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,3 +49,14 @@ There are a few additional features which you can include in order to improve yo
 
 * Polish, polish, polish. Take this time to make your menus and app look awesome. Once the menus are done, build a custom theme and app icons for it as well.
 * Start implementing some of the features from your design. First step, instead of just changing the text, build multiple stock fragments and swap them out with the menu selection. Once that is done, you can start adding implementation to those fragments.
+
+## My App Design
+
+Navigation Drawer:
+* Homepage
+* Profile Page
+* Notifications Page
+
+Options Drawer:
+* See latest
+* View content preferences

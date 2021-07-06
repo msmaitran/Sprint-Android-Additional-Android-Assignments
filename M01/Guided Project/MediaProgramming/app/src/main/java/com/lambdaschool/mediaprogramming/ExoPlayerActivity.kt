@@ -28,6 +28,7 @@ also from the internet.
 class ExoPlayerActivity : AppCompatActivity() {
 
     //TODO 4: Declare the variables needed. A simpleExoPlayer instance.
+    lateinit var videoExoPlayer: SimpleExoPlayer
 
     //TODO 5: Notice the url we will be using to streaming mp4 over the internet.
     val URL = "https://archive.org/download/Popeye_forPresident/Popeye_forPresident_512kb.mp4"
@@ -42,34 +43,46 @@ class ExoPlayerActivity : AppCompatActivity() {
         //TODO 7: Create a function to setup video player from file system
         //This function can be switched out with the setupVideoPlayerWithURL to stream the video
         //from the internet.
-        setupVideoPlayerFromFileSystem()
+        //setupVideoPlayerFromFileSystem()
+        setupVideoPlayerWithURL()
 
         //TODO 9: Setup clicklisteners for play and pause buttons
+        play.setOnClickListener { videoExoPlayer.playWhenReady = true}
+        pause.setOnClickListener { videoExoPlayer.playWhenReady = false }
 
         //TODO 9a: Set the player for the PlayerView
+        playerView.player = videoExoPlayer
     }
 
     fun setupVideoPlayerFromFileSystem() {
+        videoExoPlayer.prepare(createRawMediaSource(R.raw.live_views_of_starman))
     }
 
     //TODO 8: Create a function to setup video player with url to stream video through internet.
     fun setupVideoPlayerWithURL() {
+        videoExoPlayer.prepare(createUrlMediaSource(URL))
     }
 
     fun createVideoPlayer() {
         // Need a track selector
+        val trackSelector = DefaultTrackSelector()
         // Need a load control
+        val loadControl = DefaultLoadControl()
         // Need a renderers factory
+        val renderersFactory = DefaultRenderersFactory(this)
 
         // Set up the ExoPlayer
+        videoExoPlayer = ExoPlayerFactory.newSimpleInstance(this, renderersFactory, trackSelector, loadControl)
 
         // Set up the scaling mode to crop and fit the video to the screen
+        videoExoPlayer.videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
 
     }
 
     //TODO 12: Do not forget to stop the player when the user navigates away from the screen
     override fun onStop() {
         super.onStop()
+        videoExoPlayer.stop()
     }
 
     //TODO 10: Notice the code to implement and create a mediasource function using URL, returns a mediasource
